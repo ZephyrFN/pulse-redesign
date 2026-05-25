@@ -1,14 +1,5 @@
-import { BarChart3, Bell, FlaskConical, LayoutDashboard, Star } from 'lucide-react'
+import { BarChart3, Bell, FlaskConical, LineChart, Star } from 'lucide-react'
 import { Placeholder } from '../components/Placeholder'
-
-export function DashboardPage() {
-  return <Placeholder
-    title="Dashboard"
-    description="Market Radar + Top Movers redesign akan datang di Phase 6.2."
-    icon={LayoutDashboard}
-    phase="Phase 6.2 — pending"
-  />
-}
 
 export function WatchlistPage() {
   return <Placeholder
@@ -50,7 +41,7 @@ export function CoinDetailPage() {
   return <Placeholder
     title="Coin detail"
     description="5 tabs: Overview, Signals, Alerts, Backtests, Indodax Premium — Phase 6.3."
-    icon={LayoutDashboard}
+    icon={LineChart}
     phase="Phase 6.3 — pending"
   />
 }

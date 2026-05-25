@@ -29,6 +29,14 @@ export function fmtMcap(n: number): string {
   return '$' + compactFormatter.format(n)
 }
 
+/** Compact IDR formatter: Rp 1.39B / Rp 245M / Rp 12k */
+export function fmtIdrCompact(n: number): string {
+  if (n >= 1_000_000_000) return `Rp ${(n / 1_000_000_000).toFixed(2)}B`
+  if (n >= 1_000_000) return `Rp ${(n / 1_000_000).toFixed(1)}M`
+  if (n >= 1_000) return `Rp ${(n / 1_000).toFixed(0)}k`
+  return `Rp ${n.toFixed(0)}`
+}
+
 /** Time ago string: "12 detik lalu", "5 menit lalu", "2 jam lalu" */
 export function timeAgo(iso: string | Date): string {
   const date = typeof iso === 'string' ? new Date(iso) : iso

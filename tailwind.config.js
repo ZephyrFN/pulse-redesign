@@ -50,8 +50,8 @@ export default {
         text: {
           primary: '#f8fafc',
           secondary: '#cbd5e1',
-          muted: '#64748b',
-          dim: '#475569',
+          muted: '#94a3b8',
+          dim: '#64748b',
         },
       },
       fontFamily: {

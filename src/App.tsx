@@ -3,8 +3,10 @@ import { AppShell } from './layout/AppShell'
 import { Dashboard } from './pages/Dashboard'
 import { Watchlist } from './pages/Watchlist'
 import { CoinDetail } from './pages/CoinDetail'
+import { Alerts } from './pages/Alerts'
+import { Performance } from './pages/Performance'
 import {
-  AlertsPage, BacktestPage, PerformancePage,
+  BacktestPage,
 } from './pages/Placeholders'
 
 function App() {
@@ -14,8 +16,8 @@ function App() {
         <Route element={<AppShell />}>
           <Route index element={<Dashboard />} />
           <Route path="/watchlist" element={<Watchlist />} />
-          <Route path="/alerts" element={<AlertsPage />} />
-          <Route path="/performance" element={<PerformancePage />} />
+          <Route path="/alerts" element={<Alerts />} />
+          <Route path="/performance" element={<Performance />} />
           <Route path="/backtest" element={<BacktestPage />} />
           <Route path="/coin/:symbol" element={<CoinDetail />} />
         </Route>

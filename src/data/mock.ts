@@ -421,6 +421,62 @@ export const MARKET_STATS = {
 // ============================================================
 // Helpers
 // ============================================================
+// ============================================================
+// Performance aggregates per rule × horizon (mock)
+// Used by /performance dashboard
+// ============================================================
+export interface PerfStat {
+  ruleType: SignalType
+  horizon: '24h' | '7d' | '30d'
+  direction: 'long' | 'short' | 'neutral'
+  nSamples: number
+  winRate: number   // 0-100
+  avgPnl: number    // %
+}
+
+export const PERF_STATS: PerfStat[] = [
+  // bb_breakout_lower (best long performer)
+  { ruleType: 'bb_breakout_lower', horizon: '24h', direction: 'long', nSamples: 124, winRate: 64.5, avgPnl: 1.42 },
+  { ruleType: 'bb_breakout_lower', horizon: '7d',  direction: 'long', nSamples: 92,  winRate: 72.8, avgPnl: 6.85 },
+  { ruleType: 'bb_breakout_lower', horizon: '30d', direction: 'long', nSamples: 47,  winRate: 81.0, avgPnl: 17.36 },
+
+  // macd_bull_cross
+  { ruleType: 'macd_bull_cross', horizon: '24h', direction: 'long', nSamples: 86, winRate: 52.3, avgPnl: 0.85 },
+  { ruleType: 'macd_bull_cross', horizon: '7d',  direction: 'long', nSamples: 64, winRate: 65.6, avgPnl: 4.15 },
+  { ruleType: 'macd_bull_cross', horizon: '30d', direction: 'long', nSamples: 32, winRate: 78.0, avgPnl: 12.55 },
+
+  // rsi_oversold (low sample size)
+  { ruleType: 'rsi_oversold', horizon: '24h', direction: 'long', nSamples: 16, winRate: 56.0, avgPnl: 1.10 },
+  { ruleType: 'rsi_oversold', horizon: '7d',  direction: 'long', nSamples: 9,  winRate: 88.0, avgPnl: 4.50 },
+  { ruleType: 'rsi_oversold', horizon: '30d', direction: 'long', nSamples: 4,  winRate: 100.0, avgPnl: 8.97 },
+
+  // bb_breakout_upper (short, fail in bull)
+  { ruleType: 'bb_breakout_upper', horizon: '24h', direction: 'short', nSamples: 78, winRate: 38.0, avgPnl: -0.85 },
+  { ruleType: 'bb_breakout_upper', horizon: '7d',  direction: 'short', nSamples: 52, winRate: 30.0, avgPnl: -4.22 },
+  { ruleType: 'bb_breakout_upper', horizon: '30d', direction: 'short', nSamples: 28, winRate: 24.0, avgPnl: -19.80 },
+
+  // macd_bear_cross (worst)
+  { ruleType: 'macd_bear_cross', horizon: '24h', direction: 'short', nSamples: 92, winRate: 32.0, avgPnl: -1.20 },
+  { ruleType: 'macd_bear_cross', horizon: '7d',  direction: 'short', nSamples: 70, winRate: 22.0, avgPnl: -5.85 },
+  { ruleType: 'macd_bear_cross', horizon: '30d', direction: 'short', nSamples: 38, winRate: 16.0, avgPnl: -11.50 },
+
+  // rsi_overbought
+  { ruleType: 'rsi_overbought', horizon: '24h', direction: 'short', nSamples: 42, winRate: 35.0, avgPnl: -0.95 },
+  { ruleType: 'rsi_overbought', horizon: '7d',  direction: 'short', nSamples: 28, winRate: 25.0, avgPnl: -7.10 },
+  { ruleType: 'rsi_overbought', horizon: '30d', direction: 'short', nSamples: 12, winRate: 16.0, avgPnl: -18.12 },
+
+  // volume_spike (neutral, not for PnL)
+  { ruleType: 'volume_spike', horizon: '24h', direction: 'neutral', nSamples: 156, winRate: 50.5, avgPnl: 0.12 },
+  { ruleType: 'volume_spike', horizon: '7d',  direction: 'neutral', nSamples: 98,  winRate: 51.2, avgPnl: 0.54 },
+  { ruleType: 'volume_spike', horizon: '30d', direction: 'neutral', nSamples: 42,  winRate: 48.5, avgPnl: -0.80 },
+]
+
+export function confidenceTier(n: number): { tier: 'low' | 'medium' | 'high'; label: string; tone: 'bear' | 'warn' | 'bull' } {
+  if (n < 20) return { tier: 'low', label: 'Low confidence', tone: 'bear' }
+  if (n < 50) return { tier: 'medium', label: 'Medium confidence', tone: 'warn' }
+  return { tier: 'high', label: 'High confidence', tone: 'bull' }
+}
+
 export function getCoin(symbol: string): Coin | undefined {
   return COINS.find(c => c.symbol === symbol)
 }

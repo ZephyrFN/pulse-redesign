@@ -1,23 +1,5 @@
-import { BarChart3, Bell, FlaskConical } from 'lucide-react'
+import { FlaskConical } from 'lucide-react'
 import { Placeholder } from '../components/Placeholder'
-
-export function AlertsPage() {
-  return <Placeholder
-    title="Alerts"
-    description="Alert builder simple + advanced mode dengan natural language preview — Phase 6.4."
-    icon={Bell}
-    phase="Phase 6.4 — pending"
-  />
-}
-
-export function PerformancePage() {
-  return <Placeholder
-    title="Performance"
-    description="Best/worst signal, long vs short, heatmap, confidence badge — Phase 6.4."
-    icon={BarChart3}
-    phase="Phase 6.4 — pending"
-  />
-}
 
 export function BacktestPage() {
   return <Placeholder

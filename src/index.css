@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html, body, #root {
+    @apply min-h-screen;
+  }
+
+  body {
+    @apply bg-bg-base text-text-primary font-sans antialiased;
+    background-image:
+      radial-gradient(ellipse at top left, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  /* Numerical figures: tabular nums for alignment */
+  .num {
+    font-variant-numeric: tabular-nums;
+    font-family: theme('fontFamily.mono');
+  }
+
+  /* Focus ring: high contrast */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-signal-500 ring-offset-2 ring-offset-bg-base;
+  }
+}
+
+@layer components {
+  /* Glass card */
+  .glass {
+    @apply bg-bg-surface/80 backdrop-blur-xl border border-line shadow-glass-sm;
+  }
+
+  .glass-elevated {
+    @apply bg-bg-elevated/80 backdrop-blur-xl border border-line-strong shadow-glass;
+  }
+
+  /* Subtle hover surface */
+  .hover-surface {
+    @apply transition-colors hover:bg-bg-overlay/60;
+  }
+
+  /* Skeleton shimmer */
+  .skeleton {
+    @apply bg-gradient-to-r from-bg-surface via-bg-elevated to-bg-surface bg-[length:200%_100%] animate-shimmer rounded-md;
+  }
+
+  /* Scrollbar */
+  .pulse-scroll::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+  .pulse-scroll::-webkit-scrollbar-thumb {
+    @apply bg-line-strong rounded-full;
+  }
+  .pulse-scroll::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+}
+
+@layer utilities {
+  .grid-rows-radar {
+    grid-template-rows: minmax(0, 1fr);
+  }
+}

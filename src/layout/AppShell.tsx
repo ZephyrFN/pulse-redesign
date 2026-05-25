@@ -109,7 +109,7 @@ export function AppShell() {
         <div className="max-w-[1480px] mx-auto px-4 sm:px-6 flex flex-wrap items-center justify-between gap-3 text-xs text-text-muted">
           <div className="flex items-center gap-2">
             <LineChart className="w-3.5 h-3.5" />
-            <span>Pulse Redesign · Phase 6.4</span>
+            <span>Pulse Redesign · Phase 6.5 · all features ✓</span>
           </div>
           <div className="flex items-center gap-4">
             <span>Mock data · No backend</span>

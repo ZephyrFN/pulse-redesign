@@ -5,9 +5,7 @@ import { Watchlist } from './pages/Watchlist'
 import { CoinDetail } from './pages/CoinDetail'
 import { Alerts } from './pages/Alerts'
 import { Performance } from './pages/Performance'
-import {
-  BacktestPage,
-} from './pages/Placeholders'
+import { Backtest } from './pages/Backtest'
 
 function App() {
   return (
@@ -18,7 +16,7 @@ function App() {
           <Route path="/watchlist" element={<Watchlist />} />
           <Route path="/alerts" element={<Alerts />} />
           <Route path="/performance" element={<Performance />} />
-          <Route path="/backtest" element={<BacktestPage />} />
+          <Route path="/backtest" element={<Backtest />} />
           <Route path="/coin/:symbol" element={<CoinDetail />} />
         </Route>
       </Routes>

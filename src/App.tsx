@@ -1,8 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { AppShell } from './layout/AppShell'
 import { Dashboard } from './pages/Dashboard'
+import { Watchlist } from './pages/Watchlist'
+import { CoinDetail } from './pages/CoinDetail'
 import {
-  AlertsPage, BacktestPage, CoinDetailPage, PerformancePage, WatchlistPage,
+  AlertsPage, BacktestPage, PerformancePage,
 } from './pages/Placeholders'
 
 function App() {
@@ -11,11 +13,11 @@ function App() {
       <Routes>
         <Route element={<AppShell />}>
           <Route index element={<Dashboard />} />
-          <Route path="/watchlist" element={<WatchlistPage />} />
+          <Route path="/watchlist" element={<Watchlist />} />
           <Route path="/alerts" element={<AlertsPage />} />
           <Route path="/performance" element={<PerformancePage />} />
           <Route path="/backtest" element={<BacktestPage />} />
-          <Route path="/coin/:symbol" element={<CoinDetailPage />} />
+          <Route path="/coin/:symbol" element={<CoinDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>

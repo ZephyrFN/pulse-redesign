@@ -1,14 +1,5 @@
-import { BarChart3, Bell, FlaskConical, LineChart, Star } from 'lucide-react'
+import { BarChart3, Bell, FlaskConical } from 'lucide-react'
 import { Placeholder } from '../components/Placeholder'
-
-export function WatchlistPage() {
-  return <Placeholder
-    title="Watchlist"
-    description="Coin cards dengan technical summary, premium, dan CTA — Phase 6.3."
-    icon={Star}
-    phase="Phase 6.3 — pending"
-  />
-}
 
 export function AlertsPage() {
   return <Placeholder
@@ -34,14 +25,5 @@ export function BacktestPage() {
     description="5-step wizard, result cards, comparison badges — Phase 6.5."
     icon={FlaskConical}
     phase="Phase 6.5 — pending"
-  />
-}
-
-export function CoinDetailPage() {
-  return <Placeholder
-    title="Coin detail"
-    description="5 tabs: Overview, Signals, Alerts, Backtests, Indodax Premium — Phase 6.3."
-    icon={LineChart}
-    phase="Phase 6.3 — pending"
   />
 }

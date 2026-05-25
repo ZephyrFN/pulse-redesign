@@ -665,8 +665,9 @@ function RunsList({ runs, selected, setSelected }: {
             <Card
               key={run.id}
               className={clsx('cursor-pointer transition-all', isSel && 'ring-2 ring-signal-500/40')}
+              onClick={() => toggle(run.id)}
             >
-              <CardBody className="p-4 space-y-3" onClick={() => toggle(run.id)}>
+              <CardBody className="p-4 space-y-3">
                 <div className="flex items-start justify-between gap-2">
                   <div>
                     <div className="font-semibold text-text-primary">{run.strategyName}</div>

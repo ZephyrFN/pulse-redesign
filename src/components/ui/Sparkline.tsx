@@ -35,7 +35,7 @@ export function Sparkline({ data, width = 80, height = 28, tone = 'auto', classN
   let resolvedTone: 'bull' | 'bear' | 'neutral' = 'neutral'
   if (tone === 'auto') {
     resolvedTone = data[data.length - 1] > data[0] ? 'bull' : data[data.length - 1] < data[0] ? 'bear' : 'neutral'
-  } else if (tone !== 'auto') {
+  } else {
     resolvedTone = tone
   }
 

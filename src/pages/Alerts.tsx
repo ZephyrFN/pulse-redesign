@@ -157,8 +157,8 @@ function AlertCard({ alert }: { alert: AlertEvent }) {
           </div>
 
           <div className="shrink-0 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-            <Button variant="ghost" size="xs" icon={<Volume2 className="w-3 h-3" />} aria-label="Mute alert" />
-            <Button variant="ghost" size="xs" icon={<Trash2 className="w-3 h-3" />} aria-label="Delete alert" />
+            <Button variant="ghost" size="xs" icon={<Volume2 className="w-3 h-3" />} aria-label="Mute alert">{null}</Button>
+            <Button variant="ghost" size="xs" icon={<Trash2 className="w-3 h-3" />} aria-label="Delete alert">{null}</Button>
             <Button variant="ghost" size="xs" iconRight={<ChevronRight className="w-3 h-3" />}>Detail</Button>
           </div>
         </div>

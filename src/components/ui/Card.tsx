@@ -7,11 +7,13 @@ interface CardProps {
   glow?: 'bull' | 'bear' | 'signal' | 'none'
   elevated?: boolean
   as?: 'div' | 'article' | 'section'
+  onClick?: () => void
 }
 
-export function Card({ children, className, glow = 'none', elevated = false, as: Tag = 'div' }: CardProps) {
+export function Card({ children, className, glow = 'none', elevated = false, as: Tag = 'div', onClick }: CardProps) {
   return (
     <Tag
+      onClick={onClick}
       className={clsx(
         'rounded-xl',
         elevated ? 'glass-elevated' : 'glass',

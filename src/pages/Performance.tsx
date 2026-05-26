@@ -94,13 +94,13 @@ export function Performance() {
         <div className="overflow-x-auto pulse-scroll">
           <table className="w-full text-sm min-w-[720px]">
             <thead>
-              <tr className="text-left text-[10px] uppercase tracking-widest text-text-muted border-b border-line">
-                <th className="px-4 py-3 font-semibold">Rule</th>
-                <th className="px-4 py-3 font-semibold">Direction</th>
-                <th className="px-4 py-3 font-semibold text-right">Win rate</th>
-                <th className="px-4 py-3 font-semibold text-right">Avg PnL</th>
-                <th className="px-4 py-3 font-semibold text-right">Sample</th>
-                <th className="px-4 py-3 font-semibold">Confidence</th>
+              <tr className="text-left text-[10px] uppercase tracking-widest text-text-secondary border-b-2 border-line-strong bg-bg-elevated/40">
+                <th className="px-4 py-3.5 font-bold">Rule</th>
+                <th className="px-4 py-3.5 font-bold">Direction</th>
+                <th className="px-4 py-3.5 font-bold text-right">Win rate</th>
+                <th className="px-4 py-3.5 font-bold text-right">Avg PnL</th>
+                <th className="px-4 py-3.5 font-bold text-right">Sample</th>
+                <th className="px-4 py-3.5 font-bold">Confidence</th>
               </tr>
             </thead>
             <tbody>
@@ -111,8 +111,8 @@ export function Performance() {
                   <tr
                     key={`${s.ruleType}-${s.horizon}`}
                     className={clsx(
-                      'border-b border-line hover-surface',
-                      isLowConf && 'opacity-60',
+                      'border-b border-line hover-surface transition-colors',
+                      isLowConf && 'opacity-50 grayscale',
                     )}
                     title={isLowConf ? `Low sample size (n=${s.nSamples}) — interpretasi dengan hati-hati` : undefined}
                   >

@@ -7,7 +7,7 @@ import { Card } from '../ui/Card'
 import { FilterChip } from '../ui/FilterChip'
 import { RangeBar } from '../ui/RangeBar'
 import { Sparkline } from '../ui/Sparkline'
-import { COINS, getSignalLabel } from '../../data/mock'
+import { COINS } from '../../data/mock'
 import type { Coin } from '../../data/mock'
 import { fmtIdrCompact, fmtPct, fmtPrice, fmtVol, tone } from '../../lib/format'
 
@@ -135,19 +135,18 @@ export function TopMovers() {
       {/* Table */}
       <Card className="overflow-hidden">
         <div className="overflow-x-auto pulse-scroll max-h-[68vh]">
-          <table className="w-full text-sm min-w-[1100px]">
+          <table className="w-full text-sm min-w-[920px]">
             <thead className="sticky top-0 z-10 bg-bg-surface/95 backdrop-blur-sm">
               <tr className="text-left text-[10px] uppercase tracking-widest text-text-muted border-b border-line">
-                <th className="px-3 py-2.5 font-semibold w-8"></th>
-                <th className="px-3 py-2.5 font-semibold">Pair</th>
-                <th className="px-3 py-2.5 font-semibold text-right">Price</th>
-                <th className="px-3 py-2.5 font-semibold text-right">24h</th>
-                <th className="px-3 py-2.5 font-semibold">7d</th>
-                <th className="px-3 py-2.5 font-semibold">24h Range</th>
-                <th className="px-3 py-2.5 font-semibold text-right">Volume</th>
-                <th className="px-3 py-2.5 font-semibold text-right">Indodax</th>
-                <th className="px-3 py-2.5 font-semibold">Status</th>
-                <th className="px-3 py-2.5 font-semibold text-right">Aksi</th>
+                <th className="px-2 py-2.5 font-semibold w-8"></th>
+                <th className="px-2 py-2.5 font-semibold">Pair</th>
+                <th className="px-2 py-2.5 font-semibold text-right">Price</th>
+                <th className="px-2 py-2.5 font-semibold text-right">24h</th>
+                <th className="px-2 py-2.5 font-semibold w-[140px]">24h Range</th>
+                <th className="px-2 py-2.5 font-semibold text-right">Volume</th>
+                <th className="px-2 py-2.5 font-semibold text-right">Indodax</th>
+                <th className="px-2 py-2.5 font-semibold">Status</th>
+                <th className="px-2 py-2.5 font-semibold text-right">Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -173,12 +172,11 @@ export function TopMovers() {
 
 function CoinRow({ coin }: { coin: Coin }) {
   const changeTone = tone(coin.change24h)
-  const change7dTone = tone(coin.change7d)
 
   return (
     <tr className="border-t border-line hover-surface group">
       {/* Pin */}
-      <td className="px-3 py-3 align-middle">
+      <td className="px-2 py-3 align-middle">
         <button
           aria-label={coin.pinned ? `Unpin ${coin.base}` : `Pin ${coin.base}`}
           className={clsx(
@@ -193,13 +191,13 @@ function CoinRow({ coin }: { coin: Coin }) {
       </td>
 
       {/* Pair */}
-      <td className="px-3 py-3 align-middle">
+      <td className="px-2 py-3 align-middle">
         <Link to={`/coin/${coin.symbol}`} className="flex items-center gap-2.5 group/link">
-          <div className="w-8 h-8 rounded-full bg-bg-elevated ring-1 ring-line-strong flex items-center justify-center text-[10px] font-bold text-text-secondary uppercase">
+          <div className="w-8 h-8 rounded-full bg-bg-elevated ring-1 ring-line-strong flex items-center justify-center text-[10px] font-bold text-text-secondary uppercase shrink-0">
             {coin.base.slice(0, 3)}
           </div>
           <div className="min-w-0">
-            <div className="font-semibold text-text-primary group-hover/link:text-signal-400 transition-colors leading-tight">
+            <div className="font-semibold text-text-primary group-hover/link:text-accent-400 transition-colors leading-tight">
               {coin.base}
               <span className="text-text-dim text-xs ml-1">/USDT</span>
             </div>
@@ -209,15 +207,15 @@ function CoinRow({ coin }: { coin: Coin }) {
       </td>
 
       {/* Price */}
-      <td className="px-3 py-3 align-middle text-right">
+      <td className="px-2 py-3 align-middle text-right">
         <div className="flex items-center justify-end gap-2">
-          <Sparkline data={coin.sparkline} tone="auto" width={64} height={20} showFill={false} />
+          <Sparkline data={coin.sparkline} tone={changeTone === 'bull' ? 'bull' : changeTone === 'bear' ? 'bear' : 'neutral'} width={56} height={20} showFill={false} />
           <span className="font-semibold text-text-primary num">${fmtPrice(coin.price)}</span>
         </div>
       </td>
 
       {/* 24h */}
-      <td className="px-3 py-3 align-middle text-right">
+      <td className="px-2 py-3 align-middle text-right">
         <span className={clsx(
           'inline-block px-1.5 py-0.5 rounded font-bold num text-xs ring-1 ring-inset',
           changeTone === 'bull' && 'bg-bull-950 text-bull-400 ring-bull-500/20',
@@ -228,20 +226,8 @@ function CoinRow({ coin }: { coin: Coin }) {
         </span>
       </td>
 
-      {/* 7d */}
-      <td className="px-3 py-3 align-middle">
-        <span className={clsx(
-          'inline-block px-1.5 py-0.5 rounded num text-xs',
-          change7dTone === 'bull' && 'text-bull-400',
-          change7dTone === 'bear' && 'text-bear-400',
-          change7dTone === 'neutral' && 'text-text-muted',
-        )}>
-          {fmtPct(coin.change7d)}
-        </span>
-      </td>
-
       {/* 24h range */}
-      <td className="px-3 py-3 align-middle min-w-[140px]">
+      <td className="px-2 py-3 align-middle">
         <RangeBar low={coin.low24h} high={coin.high24h} current={coin.price} />
         <div className="flex justify-between text-[10px] text-text-dim mt-1 num">
           <span>${fmtPrice(coin.low24h)}</span>
@@ -250,7 +236,7 @@ function CoinRow({ coin }: { coin: Coin }) {
       </td>
 
       {/* Volume */}
-      <td className="px-3 py-3 align-middle text-right">
+      <td className="px-2 py-3 align-middle text-right">
         <div className="num text-text-secondary text-xs">{fmtVol(coin.volume24h)}</div>
         <div className={clsx(
           'text-[10px] num',
@@ -261,7 +247,7 @@ function CoinRow({ coin }: { coin: Coin }) {
       </td>
 
       {/* Indodax */}
-      <td className="px-3 py-3 align-middle text-right">
+      <td className="px-2 py-3 align-middle text-right">
         {coin.idrPrice !== null ? (
           <div>
             <div className="num text-text-secondary text-xs">{fmtIdrCompact(coin.idrPrice)}</div>
@@ -269,7 +255,7 @@ function CoinRow({ coin }: { coin: Coin }) {
               'text-[10px] num',
               (coin.premiumPct ?? 0) > 0.3 ? 'text-warn-400' : 'text-text-muted',
             )}>
-              {(coin.premiumPct ?? 0) > 0 ? '+' : ''}{coin.premiumPct?.toFixed(2)}% prem
+              {(coin.premiumPct ?? 0) > 0 ? '+' : ''}{coin.premiumPct?.toFixed(2)}%
             </div>
           </div>
         ) : (
@@ -278,22 +264,17 @@ function CoinRow({ coin }: { coin: Coin }) {
       </td>
 
       {/* Status badges */}
-      <td className="px-3 py-3 align-middle">
+      <td className="px-2 py-3 align-middle">
         <CoinRowBadges coin={coin} />
-        {coin.activeSignals.length > 0 && (
-          <div className="text-[10px] text-text-muted mt-1">
-            {coin.activeSignals.map(getSignalLabel).join(' · ')}
-          </div>
-        )}
       </td>
 
       {/* Actions */}
-      <td className="px-3 py-3 align-middle text-right">
+      <td className="px-2 py-3 align-middle text-right">
         <div className="inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
           <button
             aria-label="Create alert"
             title="Buat alert"
-            className="p-1.5 rounded-md text-text-muted hover:text-info-400 hover:bg-info-950 transition-colors"
+            className="p-1.5 rounded-md text-text-muted hover:text-accent-400 hover:bg-accent-950 transition-colors"
           >
             <Bell className="w-3.5 h-3.5" />
           </button>

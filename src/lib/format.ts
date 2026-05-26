@@ -40,8 +40,8 @@ export function fmtIdrCompact(n: number): string {
 /** Time ago string: "12 detik lalu", "5 menit lalu", "2 jam lalu" */
 export function timeAgo(iso: string | Date): string {
   const date = typeof iso === 'string' ? new Date(iso) : iso
-  const seconds = Math.floor((Date.now() - date.getTime()) / 1000)
-  if (seconds < 60) return `${seconds}d lalu`
+  const seconds = Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000))
+  if (seconds < 60) return `${seconds}s lalu`
   const mins = Math.floor(seconds / 60)
   if (mins < 60) return `${mins}m lalu`
   const hrs = Math.floor(mins / 60)

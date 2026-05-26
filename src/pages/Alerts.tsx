@@ -82,17 +82,21 @@ export function Alerts() {
 
       {/* Filters */}
       <div className="flex flex-wrap gap-2">
-        {STATUS_FILTERS.map(s => (
-          <FilterChip
-            key={s.id}
-            active={filter === s.id}
-            onClick={() => setFilter(s.id)}
-            count={counts[s.id]}
-            tone={s.tone}
-          >
-            {s.label}
-          </FilterChip>
-        ))}
+        {STATUS_FILTERS.map(s => {
+          const c = counts[s.id]
+          const isEmpty = c === 0 && s.id !== 'all'
+          return (
+            <FilterChip
+              key={s.id}
+              active={filter === s.id}
+              onClick={() => !isEmpty && setFilter(s.id)}
+              count={c}
+              tone={s.tone}
+            >
+              <span className={isEmpty ? 'opacity-50' : ''}>{s.label}</span>
+            </FilterChip>
+          )
+        })}
       </div>
 
       {/* Alerts list */}
@@ -145,7 +149,8 @@ function AlertCard({ alert }: { alert: AlertEvent }) {
               <span className="font-semibold text-text-primary text-sm">{alert.symbol.replace('USDT', '/USDT')}</span>
               <span className="text-text-dim">·</span>
               <span className="text-sm text-text-secondary">{getSignalLabel(alert.ruleType)}</span>
-              <Badge tone={tone} size="xs" variant={alert.status === 'live' ? 'dot' : 'soft'}>
+              <Badge tone={tone} size="xs" variant={alert.status === 'live' ? 'outline' : 'soft'}>
+                {alert.status === 'live' && <span className="w-1.5 h-1.5 rounded-full bg-bull-500 animate-pulse-soft mr-1" />}
                 {STATUS_LABEL[alert.status]}
               </Badge>
             </div>

@@ -35,7 +35,7 @@ export function CoinDetail() {
       <Card>
         <CardBody className="text-center py-16">
           <div className="text-text-muted mb-4">Coin "{symbol}" tidak ditemukan</div>
-          <Link to="/" className="text-signal-400 hover:text-signal-500 text-sm">← Kembali ke dashboard</Link>
+          <Link to="/" className="text-accent-400 hover:text-accent-500 text-sm">← Kembali ke dashboard</Link>
         </CardBody>
       </Card>
     )
@@ -48,7 +48,7 @@ export function CoinDetail() {
   return (
     <div className="space-y-6">
       {/* Back link */}
-      <Link to="/" className="inline-flex items-center gap-1 text-xs text-text-muted hover:text-signal-400 transition-colors">
+      <Link to="/" className="inline-flex items-center gap-1 text-xs text-text-muted hover:text-accent-400 transition-colors">
         <ArrowLeft className="w-3 h-3" />
         Kembali ke dashboard
       </Link>
@@ -140,8 +140,12 @@ export function CoinDetail() {
           <div className="flex flex-wrap gap-2 mt-5">
             <Button variant="primary" size="sm" icon={<Bell className="w-3.5 h-3.5" />}>Buat alert</Button>
             <Button variant="soft" size="sm" icon={<FlaskConical className="w-3.5 h-3.5" />}>Run backtest</Button>
-            <Button variant="ghost" size="sm" icon={<Star className="w-3.5 h-3.5" />}>
-              {coin.pinned ? 'Sudah dipin' : 'Pin watchlist'}
+            <Button
+              variant={coin.pinned ? 'soft' : 'ghost'}
+              size="sm"
+              icon={<Star className={clsx('w-3.5 h-3.5', coin.pinned && 'fill-warn-400 text-warn-400')} />}
+            >
+              {coin.pinned ? 'Unpin watchlist' : 'Pin ke watchlist'}
             </Button>
           </div>
         </CardBody>
@@ -158,7 +162,7 @@ export function CoinDetail() {
               className={clsx(
                 'px-4 h-10 text-sm font-medium border-b-2 transition-colors whitespace-nowrap',
                 tab === t.id
-                  ? 'text-signal-400 border-signal-500'
+                  ? 'text-accent-400 border-accent-400'
                   : 'text-text-muted border-transparent hover:text-text-secondary',
               )}
             >
@@ -190,6 +194,7 @@ export function CoinDetail() {
 // Tab content
 // ============================================================
 function OverviewTab({ coin }: { coin: typeof COINS[number] }) {
+  const recentAlerts = ALERTS.filter(a => a.symbol === coin.symbol).slice(0, 3)
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
       {/* Price chart */}
@@ -197,7 +202,7 @@ function OverviewTab({ coin }: { coin: typeof COINS[number] }) {
         <CardHeader title="Price · 24h" subtitle="Mock sparkline · gunakan candle chart di production" icon={<LineChart className="w-4 h-4" />} />
         <CardBody>
           <div className="bg-bg-elevated/40 rounded-lg p-4 h-64 flex items-center justify-center">
-            <Sparkline data={coin.sparkline} tone="auto" width={600} height={200} className="w-full" />
+            <Sparkline data={coin.sparkline} tone={coin.change24h > 0 ? 'bull' : coin.change24h < 0 ? 'bear' : 'neutral'} width={600} height={200} className="w-full" />
           </div>
           <div className="flex items-center justify-between mt-3 text-xs text-text-muted num">
             <span>L: ${fmtPrice(coin.low24h)}</span>
@@ -216,6 +221,52 @@ function OverviewTab({ coin }: { coin: typeof COINS[number] }) {
           <IndicatorRow label="MACD" value={coin.activeSignals.includes('macd_bull_cross') ? 'Bull cross' : coin.activeSignals.includes('macd_bear_cross') ? 'Bear cross' : 'No cross'} hint="Trend & momentum" tone={coin.activeSignals.includes('macd_bull_cross') ? 'bull' : coin.activeSignals.includes('macd_bear_cross') ? 'bear' : 'neutral'} />
           <IndicatorRow label="Bollinger" value={coin.activeSignals.includes('bb_breakout_lower') ? 'Below lower' : coin.activeSignals.includes('bb_breakout_upper') ? 'Above upper' : 'Within band'} hint="Mean reversion" tone={coin.activeSignals.includes('bb_breakout_lower') ? 'bull' : coin.activeSignals.includes('bb_breakout_upper') ? 'bear' : 'neutral'} />
           <IndicatorRow label="Volume" value={coin.volumeChange > 50 ? `+${coin.volumeChange.toFixed(0)}% spike` : 'Normal'} hint="vs 7d avg" tone={coin.volumeChange > 50 ? 'signal' : 'neutral'} />
+        </CardBody>
+      </Card>
+
+      {/* Active signals summary */}
+      <Card className="lg:col-span-2">
+        <CardHeader
+          title="Active signals"
+          subtitle={coin.activeSignals.length > 0 ? `${coin.activeSignals.length} sinyal aktif` : 'Tidak ada sinyal saat ini'}
+          icon={<Sparkles className="w-4 h-4 text-signal-400" />}
+        />
+        <CardBody>
+          {coin.activeSignals.length === 0 ? (
+            <p className="text-sm text-text-muted">Tunggu kondisi terpenuhi atau buat alert manual untuk threshold tertentu.</p>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              {coin.activeSignals.map(s => (
+                <Badge key={s} tone="signal" size="md" icon={<Sparkles className="w-3 h-3" />}>
+                  {getSignalLabel(s)}
+                </Badge>
+              ))}
+            </div>
+          )}
+        </CardBody>
+      </Card>
+
+      {/* Recent alerts ringkasan */}
+      <Card>
+        <CardHeader
+          title="Recent alerts"
+          subtitle={recentAlerts.length > 0 ? `${recentAlerts.length} terbaru` : 'Belum ada alert'}
+          icon={<Bell className="w-4 h-4 text-info-400" />}
+        />
+        <CardBody className="space-y-2">
+          {recentAlerts.length === 0 ? (
+            <p className="text-xs text-text-muted">Setup alert di header untuk track event {coin.base}.</p>
+          ) : (
+            recentAlerts.map(a => (
+              <div key={a.id} className="rounded-lg bg-bg-elevated/60 ring-1 ring-line p-2.5">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-xs font-medium text-text-primary truncate">{getSignalLabel(a.ruleType)}</span>
+                  <span className="text-[10px] text-text-dim ml-auto">{timeAgo(a.triggeredAt)}</span>
+                </div>
+                <div className="text-[11px] text-text-muted leading-snug line-clamp-2">{a.message}</div>
+              </div>
+            ))
+          )}
         </CardBody>
       </Card>
     </div>
@@ -256,7 +307,7 @@ function AlertsTab({ coin }: { coin: typeof COINS[number] }) {
   if (coinAlerts.length === 0) {
     return (
       <Card><CardBody className="py-12 text-center text-text-muted">
-        Belum ada alert untuk {coin.base}. Klik <span className="text-signal-400">Buat alert</span> di header untuk mulai.
+        Belum ada alert untuk {coin.base}. Klik <span className="text-accent-400">Buat alert</span> di header untuk mulai.
       </CardBody></Card>
     )
   }

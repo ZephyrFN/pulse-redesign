@@ -42,8 +42,8 @@ export function AppShell() {
         <div className="max-w-[1480px] mx-auto px-4 sm:px-6 h-14 flex items-center gap-6">
           <div className="flex items-center gap-2 shrink-0">
             <div className="relative">
-              <Activity className="w-6 h-6 text-signal-400" strokeWidth={2.5} />
-              <div className="absolute inset-0 blur-md bg-signal-500/40 -z-10" />
+              <Activity className="w-6 h-6 text-accent-400" strokeWidth={2.5} />
+              <div className="absolute inset-0 blur-md bg-accent-500/40 -z-10" />
             </div>
             <div className="font-bold tracking-tight text-text-primary">Pulse</div>
             <span className="hidden sm:inline-block text-[10px] uppercase tracking-widest text-text-muted px-1.5 py-0.5 rounded bg-bg-elevated ring-1 ring-line">

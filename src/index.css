@@ -14,8 +14,9 @@
   body {
     @apply bg-bg-base text-text-primary font-sans antialiased;
     background-image:
-      radial-gradient(ellipse at top left, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
+      radial-gradient(ellipse 60% 50% at 0% 0%, rgba(10, 31, 58, 0.85) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 100% 100%, rgba(42, 10, 58, 0.75) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 50% 100%, rgba(34, 211, 238, 0.04) 0%, transparent 60%);
     background-attachment: fixed;
   }
 
@@ -27,18 +28,18 @@
 
   /* Focus ring: high contrast */
   *:focus-visible {
-    @apply outline-none ring-2 ring-signal-500 ring-offset-2 ring-offset-bg-base;
+    @apply outline-none ring-2 ring-accent-400 ring-offset-2 ring-offset-bg-base;
   }
 }
 
 @layer components {
-  /* Glass card */
+  /* Glass card — subtle, command-center surface */
   .glass {
-    @apply bg-bg-surface/80 backdrop-blur-xl border border-line shadow-glass-sm;
+    @apply bg-bg-surface/85 backdrop-blur-xl border border-line shadow-glass-sm;
   }
 
   .glass-elevated {
-    @apply bg-bg-elevated/80 backdrop-blur-xl border border-line-strong shadow-glass;
+    @apply bg-bg-elevated/85 backdrop-blur-xl border border-line-strong shadow-glass;
   }
 
   /* Subtle hover surface */

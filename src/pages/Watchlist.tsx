@@ -75,7 +75,7 @@ export function Watchlist() {
                 placeholder="Cari pair (mis. SOL, XRP)..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="h-10 pl-10 pr-3 w-full rounded-lg bg-bg-elevated text-sm text-text-primary placeholder-text-muted ring-1 ring-line-strong focus:ring-signal-500/50 transition-shadow"
+                className="h-10 pl-10 pr-3 w-full rounded-lg bg-bg-elevated text-sm text-text-primary placeholder-text-muted ring-1 ring-line-strong focus:ring-accent-500/50 transition-shadow"
               />
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 max-h-64 overflow-y-auto pulse-scroll">
@@ -94,11 +94,11 @@ export function Watchlist() {
                     <div className="w-8 h-8 rounded-full bg-bg-elevated ring-1 ring-line-strong flex items-center justify-center text-[10px] font-bold text-text-secondary uppercase shrink-0">
                       {c.base.slice(0, 3)}
                     </div>
-                    <div className="min-w-0 leading-tight">
-                      <div className="font-semibold text-text-primary group-hover:text-signal-400 text-sm">{c.base}</div>
+                    <div>
+                      <div className="font-semibold text-text-primary group-hover:text-accent-400 text-sm">{c.base}</div>
                       <div className="text-[10px] text-text-muted truncate">#{c.rank} {c.name}</div>
                     </div>
-                    <Plus className="w-4 h-4 text-text-dim group-hover:text-signal-400 ml-auto shrink-0" />
+                    <Plus className="w-4 h-4 text-text-dim group-hover:text-accent-400 ml-auto shrink-0" />
                   </div>
                 </button>
               ))}

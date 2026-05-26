@@ -11,7 +11,7 @@ interface FilterChipProps {
 }
 
 const TONES = {
-  default: 'data-[active=true]:bg-bg-elevated data-[active=true]:ring-line-strong data-[active=true]:text-text-primary',
+  default: 'data-[active=true]:bg-accent-950 data-[active=true]:ring-accent-400/40 data-[active=true]:text-accent-400',
   bull: 'data-[active=true]:bg-bull-950 data-[active=true]:ring-bull-500/30 data-[active=true]:text-bull-400',
   bear: 'data-[active=true]:bg-bear-950 data-[active=true]:ring-bear-500/30 data-[active=true]:text-bear-400',
   warn: 'data-[active=true]:bg-warn-950 data-[active=true]:ring-warn-500/30 data-[active=true]:text-warn-400',

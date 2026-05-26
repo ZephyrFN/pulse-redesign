@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import type { ReactNode } from 'react'
 
-export type BadgeTone = 'bull' | 'bear' | 'warn' | 'signal' | 'info' | 'neutral'
+export type BadgeTone = 'bull' | 'bear' | 'warn' | 'signal' | 'info' | 'accent' | 'neutral'
 
 interface BadgeProps {
   children: ReactNode
@@ -42,6 +42,12 @@ const TONES: Record<BadgeTone, { soft: string; solid: string; outline: string; d
     solid: 'bg-info-500 text-white',
     outline: 'text-info-400 ring-1 ring-info-500/30',
     dot: 'bg-info-500',
+  },
+  accent: {
+    soft: 'bg-accent-950 text-accent-400 ring-1 ring-inset ring-accent-500/20',
+    solid: 'bg-accent-500 text-bg-base',
+    outline: 'text-accent-400 ring-1 ring-accent-500/30',
+    dot: 'bg-accent-500',
   },
   neutral: {
     soft: 'bg-bg-overlay text-text-secondary ring-1 ring-inset ring-line-strong',
